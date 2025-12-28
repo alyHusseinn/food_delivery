@@ -1,6 +1,7 @@
-import { pgTable, serial, varchar, timestamp } from "drizzle-orm/pg-core";
+import exp from "constants";
+import { pgTable, serial, varchar, timestamp, boolean } from "drizzle-orm/pg-core";
 
-const roles = ["user", "restaurant_owner"] as const;
+const roles = ["customer", "owner"] as const;
 
 export const users = pgTable("users", {
     id: serial("id").primaryKey(),
@@ -8,6 +9,10 @@ export const users = pgTable("users", {
     name: varchar("name", { length: 255 }).notNull(),
     passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
     role: varchar("role", { length: 50 }).default("user").notNull(),
+    verifed: boolean("verifed").default(false).notNull(),
+    otpHash: varchar("otp_hash", { length: 255 }),
+    otpCreatedAt: timestamp("otp_created_at"),
+    otpExpiredAt: timestamp("otp_expired_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
