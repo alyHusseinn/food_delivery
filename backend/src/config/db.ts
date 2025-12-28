@@ -1,6 +1,6 @@
 import {drizzle} from 'drizzle-orm/node-postgres';
 import pg from 'pg';
-import ENV from './env.ts';
+import ENV from './env';
 
 const {Pool} = pg;
 
